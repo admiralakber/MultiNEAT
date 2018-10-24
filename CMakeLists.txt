@@ -1,57 +1,27 @@
-cmake_minimum_required(VERSION 3.3)
-project(MultiNEAT)
+# EZMake MultiNEAT/CMakeLists.txt
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+cmake_minimum_required(VERSION 3.4.3 FATAL_ERROR)
+project(MultiNEAT VERSION 0.1.0)
+set(PROJECT_DESCRIPTION "MultiNEAT")
 
-find_package(PythonLibs REQUIRED)
-include(FindPythonLibs)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-set(Boost_USE_STATIC_LIBS       OFF) # only find static libs
-set(Boost_USE_MULTITHREADED      ON)
-set(Boost_USE_STATIC_RUNTIME    OFF)
-find_package(Boost COMPONENTS
-    date_time
-    system
-    filesystem
-    python3
-    serialization)
-if(Boost_FOUND)
-    include_directories(${Boost_INCLUDE_DIRS})
-endif()
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
+include(ezmake/EZMake)
+include(CTest)
 
-include_directories(${PYTHON_INCLUDE_DIRS})
+option(MultiNEAT_WITH_TESTING "Build tests/examples" ON)
+option(MultiNEAT_NO_INSTALL "Skip installation process" OFF)
 
-add_definitions(-DUSE_BOOST_PYTHON)
-add_definitions(-DUSE_BOOST_RANDOM)
+ez_proj_init()
 
-set(SOURCE_FILES
-    src/Assert.h
-    src/Genes.h
-    src/Genome.cpp
-    src/Genome.h
-    src/Innovation.cpp
-    src/Innovation.h
-    src/Main.cpp
-    src/NeuralNetwork.cpp
-    src/NeuralNetwork.h
-    src/Parameters.cpp
-    src/Parameters.h
-    src/PhenotypeBehavior.cpp
-    src/PhenotypeBehavior.h
-    src/Population.cpp
-    src/Population.h
-    src/PythonBindings.cpp
-    src/Random.cpp
-    src/Random.h
-    src/Species.cpp
-    src/Species.h
-    src/Substrate.cpp
-    src/Substrate.h
-    src/Utils.cpp
-    src/Utils.h
-    src/Traits.h
-    src/Traits.cpp)
+ez_proj_ext_doxygen()
+ez_proj_ext_boost(COMPONENTS date_time system filesystem python3 serialization)
 
+#add_subdirectory(${PROJECT_SOURCE_DIR}/extern)
+add_subdirectory(${PROJECT_SOURCE_DIR}/src/lib)
+add_subdirectory(${PROJECT_SOURCE_DIR}/src/bin)
 
-add_executable(MultiNEAT ${SOURCE_FILES})
-target_link_libraries(MultiNEAT ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} pthread)
+ez_proj_export()
