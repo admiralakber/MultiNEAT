@@ -30,16 +30,6 @@
 // Description: Definitions for the Neuron and Link gene classes.
 /////////////////////////////////////////////////////////////////
 
-#ifdef USE_BOOST_PYTHON
-
-#include <boost/python.hpp>
-#include <boost/archive/binary_oarchive.hpp>
-#include <boost/archive/binary_iarchive.hpp>
-#include <boost/serialization/vector.hpp>
-
-namespace py = boost::python;
-
-#endif
 
 #include <iostream>
 #include <vector>
@@ -168,13 +158,6 @@ namespace NEAT
                     int idx = a_RNG.Roulette(probs);
                     t = itp.set[idx];
                 }
-#ifdef USE_BOOST_PYTHON
-                if (it->second.type == "pyobject")
-                {
-                    py::object itp = bs::get<py::object>(it->second.m_Details);
-                    t = itp(); // details is a function that returns a random instance of the trait
-                }
-#endif
 
                 Trait tr;
                 tr.value = t;
@@ -199,14 +182,6 @@ namespace NEAT
                 }
 
                 // if generic python object, forward all processing to its method
-#ifdef USE_BOOST_PYTHON
-                if (mine.type() == typeid(py::object))
-                {
-                    // call mating function
-                    m_Traits[it->first].value = bs::get<py::object>(mine).attr("mate")(bs::get<py::object>(yours));
-                }
-                else
-#endif
                 {
 
                     if (a_RNG.RandFloat() < 0.5) // pick either one
@@ -392,13 +367,6 @@ namespace NEAT
                         if(cur.value != itp.set[idx].value)
                             did_mutate = true;
                     }
-#ifdef USE_BOOST_PYTHON
-                    if (it->second.type == "pyobject")
-                    {
-                        m_Traits[it->first].value = bs::get<py::object>(m_Traits[it->first].value).attr("mutate")();
-                        did_mutate = true;
-                    }
-#endif
                 }
             }
 
@@ -479,13 +447,6 @@ namespace NEAT
                         // distance between floats - calculate directly
                         dist[it->first] = abs((bs::get<floatsetelement>(mine)).value - (bs::get<floatsetelement>(yours)).value);
                     }
-#ifdef USE_BOOST_PYTHON
-                    if (mine.type() == typeid(py::object))
-                    {
-                        // distance between objects - calculate via method
-                        dist[it->first] = py::extract<double>(bs::get<py::object>(mine).attr("distance_to")(bs::get<py::object>(yours)));
-                    }
-#endif
                 }
             }
 
@@ -523,22 +484,6 @@ namespace NEAT
 
     public:
 
-#ifdef USE_BOOST_PYTHON
-        // Serialization
-        friend class boost::serialization::access;
-        template<class Archive>
-        void serialize(Archive & ar, const unsigned int version)
-        {
-            ar & m_FromNeuronID;
-            ar & m_ToNeuronID;
-            ar & m_InnovationID;
-            ar & m_IsRecurrent;
-            ar & m_Weight;
-
-            // the traits too, TODO
-            //ar & m_Traits;
-        }
-#endif
 
         double GetWeight() const
         {
@@ -702,27 +647,6 @@ namespace NEAT
         // The type of activation function the neuron has
         ActivationFunction m_ActFunction;
 
-#ifdef USE_BOOST_PYTHON
-        // Serialization
-        friend class boost::serialization::access;
-        template<class Archive>
-        void serialize(Archive & ar, const unsigned int version)
-        {
-            ar & m_ID;
-            ar & m_Type;
-            ar & m_A;
-            ar & m_B;
-            ar & m_TimeConstant;
-            ar & m_Bias;
-            ar & x;
-            ar & y;
-            ar & m_ActFunction;
-            ar & m_SplitY;
-
-            // TODO the traits also
-            //ar & m_Traits;
-        }
-#endif
 
         ////////////////
         // Constructors

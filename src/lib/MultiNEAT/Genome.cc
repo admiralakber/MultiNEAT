@@ -95,9 +95,6 @@ namespace NEAT
         m_PhenotypeBehavior = a_G.m_PhenotypeBehavior;
         m_initial_num_neurons = a_G.m_initial_num_neurons;
         m_initial_num_links = a_G.m_initial_num_links;
-#ifdef USE_BOOST_PYTHON
-        m_behavior = a_G.m_behavior;
-#endif
     }
 
     // assignment operator
@@ -120,9 +117,6 @@ namespace NEAT
             m_PhenotypeBehavior = a_G.m_PhenotypeBehavior;
             m_initial_num_neurons = a_G.m_initial_num_neurons;
             m_initial_num_links = a_G.m_initial_num_links;
-#ifdef USE_BOOST_PYTHON
-            m_behavior = a_G.m_behavior;
-#endif
         }
 
         return *this;

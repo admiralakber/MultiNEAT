@@ -18,7 +18,7 @@ option(MultiNEAT_NO_INSTALL "Skip installation process" OFF)
 ez_proj_init()
 
 ez_proj_ext_doxygen()
-ez_proj_ext_boost(COMPONENTS date_time system filesystem python3 serialization)
+ez_proj_ext_boost(COMPONENTS date_time system filesystem serialization)
 
 #add_subdirectory(${PROJECT_SOURCE_DIR}/extern)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/lib)
