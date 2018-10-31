@@ -81,10 +81,10 @@ int main()
     params.PopulationSize = 32;
     params.DynamicCompatibility = true;
     params.WeightDiffCoeff = 0.0;
-    params.CompatTreshold = 3.0;
-    params.YoungAgeTreshold = 15;
+    params.CompatThreshold = 3.0;
+    params.YoungAgeThreshold = 15;
     params.SpeciesMaxStagnation = 15;
-    params.OldAgeTreshold = 35;
+    params.OldAgeThreshold = 35;
     params.OldAgePenalty = 0.1;
     params.MinSpecies = 2;
     params.MaxSpecies = 4;

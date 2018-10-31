@@ -4,9 +4,9 @@
 //    Copyright (C) 2012 Peter Chervenski
 //
 //    This program is free software: you can redistribute it and/or modify
-//    it under the terms of the GNU Lesser General Public License as published by
-//    the Free Software Foundation, either version 3 of the License, or
-//    (at your option) any later version.
+//    it under the terms of the GNU Lesser General Public License as published
+//    by the Free Software Foundation, either version 3 of the License, or (at
+//    your option) any later version.
 //
 //    This program is distributed in the hope that it will be useful,
 //    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -29,20 +29,18 @@
 
 #include <MultiNEAT/Utils.hh>
 
-void Scale(vector<double>& a_Values, const double a_tr_min, const double a_tr_max)
-{
-    double t_max = std::numeric_limits<double>::min(), t_min = std::numeric_limits<double>::max();
-    GetMaxMin(a_Values, t_min, t_max);
-    vector<double> t_ValuesScaled;
-    for(vector<double>::const_iterator t_It = a_Values.begin(); t_It != a_Values.end(); ++t_It)
-    {
-        double t_ValueToBeScaled = (*t_It);
-        Scale(t_ValueToBeScaled, t_min, t_max, 0, 1); // !!!!!!!!!!!!!!!!??????????
-        t_ValuesScaled.push_back(t_ValueToBeScaled);
-    }
+void Scale(std::vector<double> &a_Values, const double a_tr_min,
+           const double a_tr_max) {
+  double t_max = std::numeric_limits<double>::min(),
+         t_min = std::numeric_limits<double>::max();
+  GetMaxMin(a_Values, t_min, t_max);
+  std::vector<double> t_ValuesScaled;
+  for (std::vector<double>::const_iterator t_It = a_Values.begin();
+       t_It != a_Values.end(); ++t_It) {
+    double t_ValueToBeScaled = (*t_It);
+    Scale(t_ValueToBeScaled, t_min, t_max, 0, 1); // !!!!!!!!!!!!!!!!??????????
+    t_ValuesScaled.push_back(t_ValueToBeScaled);
+  }
 
-    a_Values = t_ValuesScaled;
+  a_Values = t_ValuesScaled;
 }
-
-
-

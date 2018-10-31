@@ -16,8 +16,6 @@ ez_this_unit_add_code(Substrate hh cc)
 ez_this_unit_add_header(Assert.hh)
 ez_this_unit_add_header(Genes.hh)
 
-ez_this_unit_add_source(PythonBindings.cc)
-
 ez_this_unit_build(SHARED)
 ez_this_unit_link(PUBLIC ${Boost_LIBRARIES} pthread)
 

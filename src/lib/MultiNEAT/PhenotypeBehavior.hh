@@ -7,9 +7,9 @@
 //    Copyright (C) 2012 Peter Chervenski
 //
 //    This program is free software: you can redistribute it and/or modify
-//    it under the terms of the GNU Lesser General Public License as published by
-//    the Free Software Foundation, either version 3 of the License, or
-//    (at your option) any later version.
+//    it under the terms of the GNU Lesser General Public License as published
+//    by the Free Software Foundation, either version 3 of the License, or (at
+//    your option) any later version.
 //
 //    This program is distributed in the hope that it will be useful,
 //    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -30,61 +30,52 @@
 // Description: Definition for the base phenotype behavior class.
 ///////////////////////////////////////////////////////////////////////////////
 
-#include <vector>
 #include <MultiNEAT/Assert.hh>
+#include <vector>
 
-namespace NEAT
-{
+namespace NEAT {
 
 class Genome;
 
 // Always use this class as the base class when defining your own
 // behavior characterization!
-class PhenotypeBehavior
-{
+class PhenotypeBehavior {
 public:
-    virtual ~PhenotypeBehavior(){};
+  virtual ~PhenotypeBehavior(){};
 
-    // A 2D matrix of doubles with arbitrary size
-    // is enough to represent any behavior in most domains
-    std::vector< std::vector<double> > m_Data;
+  // A 2D matrix of doubles with arbitrary size
+  // is enough to represent any behavior in most domains
+  std::vector<std::vector<double>> m_Data;
 
-    // This method acquires behavior data based on the genome given
-    // May return true if a successful behavior was encountered during
-    // evaluation
-    virtual bool   Acquire(Genome* a_Genome)
-    {
-        //ASSERT(false);
-        return false;
-    }
+  // This method acquires behavior data based on the genome given
+  // May return true if a successful behavior was encountered during
+  // evaluation
+  virtual bool Acquire(Genome *a_Genome) {
+    // ASSERT(false);
+    return false;
+  }
 
-    // Overload this method to calcluate distance between behaviors
-    virtual double Distance_To(PhenotypeBehavior* a_Other)
-    {
-        //ASSERT(false);
-        return 0;
-    }
+  // Overload this method to calcluate distance between behaviors
+  virtual double Distance_To(PhenotypeBehavior *a_Other) {
+    // ASSERT(false);
+    return 0;
+  }
 
-    // This method tells us whether the behavior is the one
-    // we're looking for. Not necessary to call/overload this in open-ended evolution
-    virtual bool   Successful()
-    {
-        //ASSERT(false);
-        return true;
-    }
-    
-    // comparison operator (nessesary for boost::python)
-    // todo: implement a better comparison technique
-    bool operator==(PhenotypeBehavior const& other) const { return m_Data == other.m_Data; }
+  // This method tells us whether the behavior is the one
+  // we're looking for. Not necessary to call/overload this in open-ended
+  // evolution
+  virtual bool Successful() {
+    // ASSERT(false);
+    return true;
+  }
+
+  // comparison operator (nessesary for boost::python)
+  // todo: implement a better comparison technique
+  bool operator==(PhenotypeBehavior const &other) const {
+    return m_Data == other.m_Data;
+  }
 };
 
-
-};
-
-
-
-
-
+}; // namespace NEAT
 
 #endif
-

@@ -3,4 +3,3 @@
 //
 
 #include <MultiNEAT/Traits.hh>
-
