@@ -25,19 +25,17 @@ all the Python and focuses on providing a nice Modern C++ library.
 
 ### License
 
-GNU Lesser General Public License v3.0 
+GNU Lesser General Public License v3.0
 
 ### Documentation
 [MultiNEAT official website](http://multineat.com/docs.html)
 
 #### To compile
 
-To build we use [EZMake](https://github.com/thaum0/ezmake) to generate CMake
-files and CMake to generate Makefiles.
+To build we use [EZMake](https://github.com/thaum0/ezmake) on top of CMake.
+There is a basic Makefile to get started, that we will use below.
 
-EZMake generates a basic Makefile to get started that we will use below.
-
-First, pull the git submodules:
+First, pull the EZMake git submodule:
 ```bash
 make gitreqs
 ```
